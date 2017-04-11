@@ -6,6 +6,7 @@
 C_SRCS += \
 ../src/hal_msp.c \
 ../src/main.c \
+../src/pwm_input.c \
 ../src/stm32f4xx_it.c \
 ../src/syscalls.c \
 ../src/system_stm32f4xx.c \
@@ -14,6 +15,7 @@ C_SRCS += \
 OBJS += \
 ./src/hal_msp.o \
 ./src/main.o \
+./src/pwm_input.o \
 ./src/stm32f4xx_it.o \
 ./src/syscalls.o \
 ./src/system_stm32f4xx.o \
@@ -22,6 +24,7 @@ OBJS += \
 C_DEPS += \
 ./src/hal_msp.d \
 ./src/main.d \
+./src/pwm_input.d \
 ./src/stm32f4xx_it.d \
 ./src/syscalls.d \
 ./src/system_stm32f4xx.d \

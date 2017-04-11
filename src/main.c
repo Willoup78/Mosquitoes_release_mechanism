@@ -1,22 +1,25 @@
 /**
   ******************************************************************************
   * @file    main.c
-  * @author  Ac6
+  * @author  William PONSOT
   * @version V1.0
-  * @date    01-December-2013
+  * @date    11-April-2017
   * @brief   Default main function.
   ******************************************************************************
 */
 			
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "hal_msp.h"
+//#include "hal_msp.h"
 #include "uart_printf.h"
+#include "pwm_input.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+uint32_t frequency = 0;
+uint32_t dutycycle = 0;
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
 
@@ -29,17 +32,20 @@ static void SystemClock_Config(void);
   */
 int main(void)
 {
-  HAL_Init();
 
-  /* Configure the system clock to 180 MHz */
-  SystemClock_Config();
+	HAL_Init();
 
-  uart_printf_init();
+	/* Configure the system clock to 180 MHz */
+	SystemClock_Config();
 
-  while (1)
-  {
-	  printf("Super Leug\n\r");
-  }
+	uart_printf_init();
+	pwm_input_init();
+
+	while (1)
+	{
+	  pwm_input_get_value (&frequency,  &dutycycle);
+	  printf ("freq = %ld, dutycycle = %ld\n\r", frequency, dutycycle);
+	}
 }
 
 /**
