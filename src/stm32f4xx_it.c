@@ -21,6 +21,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern TIM_HandleTypeDef    TimHandle; //First declaration in pwm_input.c
+extern RTC_HandleTypeDef RtcHandle; //First declaration in rtc.c
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -57,4 +58,9 @@ void SysTick_Handler(void)
 void TIMx_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&TimHandle);
+}
+
+void RTC_Alarm_IRQHandler(void)
+{
+	HAL_RTC_AlarmIRQHandler(&RtcHandle);
 }

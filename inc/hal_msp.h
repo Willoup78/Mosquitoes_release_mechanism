@@ -1,9 +1,12 @@
-/*
- * hal_msp.h
- *
- *  Created on: Apr 11, 2017
- *      Author: William
- */
+/**
+  ******************************************************************************
+  * @file    hal_msp.h
+  * @author  William PONSOT
+  * @version V1.0
+  * @date    20-April-2017
+  * @brief   Init of low hardware level.
+  ******************************************************************************
+*/
 
 #ifndef HAL_MSP_H_
 #define HAL_MSP_H_
@@ -43,6 +46,10 @@
 /* Definition for TIMx's NVIC */
 #define TIMx_CC_IRQn                   TIM1_CC_IRQn
 #define TIMx_IRQHandler                TIM1_CC_IRQHandler
+
+/* Defines related to Clock configuration */
+#define RTC_ASYNCH_PREDIV  0x7F   /* LSE as RTC clock */
+#define RTC_SYNCH_PREDIV   0x00FF /* LSE as RTC clock */
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

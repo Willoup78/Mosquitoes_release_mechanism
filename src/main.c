@@ -10,16 +10,15 @@
 			
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-//#include "hal_msp.h"
 #include "uart_printf.h"
 #include "pwm_input.h"
+#include "rtc.h"
 
 /* Private typedef -----------------------------------------------------------*/
+
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-uint32_t frequency = 0;
-uint32_t dutycycle = 0;
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
 
@@ -32,19 +31,20 @@ static void SystemClock_Config(void);
   */
 int main(void)
 {
+	Time time;
 
 	HAL_Init();
-
 	/* Configure the system clock to 180 MHz */
 	SystemClock_Config();
 
 	uart_printf_init();
-	pwm_input_init();
+	rtc_init();
+	rtc_set_alarm();
 
 	while (1)
 	{
-	  pwm_input_get_value (&frequency,  &dutycycle);
-	  printf ("freq = %ld, dutycycle = %ld\n\r", frequency, dutycycle);
+		rtc_calendar_read(&time);
+		//printf("%d-%d-%d(%d), %d:%d:%d\n\r", time.years, time.months, time.date, time.weekday, time.hours, time.minutes, time.seconds);
 	}
 }
 

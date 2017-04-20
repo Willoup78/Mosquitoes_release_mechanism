@@ -88,6 +88,7 @@
 "src/hal_msp.o"
 "src/main.o"
 "src/pwm_input.o"
+"src/rtc.o"
 "src/stm32f4xx_it.o"
 "src/syscalls.o"
 "src/system_stm32f4xx.o"
