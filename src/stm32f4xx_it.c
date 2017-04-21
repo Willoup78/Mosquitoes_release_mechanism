@@ -20,8 +20,10 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-extern TIM_HandleTypeDef    TimHandle; //First declaration in pwm_input.c
+extern TIM_HandleTypeDef TimHandle; //First declaration in pwm_input.c
 extern RTC_HandleTypeDef RtcHandle; //First declaration in rtc.c
+extern ADC_HandleTypeDef AdcHandle; //First declaration in adc_input.c
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -60,7 +62,22 @@ void TIMx_IRQHandler(void)
   HAL_TIM_IRQHandler(&TimHandle);
 }
 
+/**
+  * @brief  This function handles RTC interrupt request.
+  * @param  None
+  * @retval None
+  */
 void RTC_Alarm_IRQHandler(void)
 {
 	HAL_RTC_AlarmIRQHandler(&RtcHandle);
+}
+
+/**
+  * @brief  This function handles ADC interrupt request.
+  * @param  None
+  * @retval None
+  */
+void ADC_IRQHandler(void)
+{
+  HAL_ADC_IRQHandler(&AdcHandle);
 }

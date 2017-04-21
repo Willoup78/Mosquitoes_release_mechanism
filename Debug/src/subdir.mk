@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/adc_input.c \
 ../src/hal_msp.c \
 ../src/main.c \
 ../src/pwm_input.c \
@@ -14,6 +15,7 @@ C_SRCS += \
 ../src/uart_printf.c 
 
 OBJS += \
+./src/adc_input.o \
 ./src/hal_msp.o \
 ./src/main.o \
 ./src/pwm_input.o \
@@ -24,6 +26,7 @@ OBJS += \
 ./src/uart_printf.o 
 
 C_DEPS += \
+./src/adc_input.d \
 ./src/hal_msp.d \
 ./src/main.d \
 ./src/pwm_input.d \

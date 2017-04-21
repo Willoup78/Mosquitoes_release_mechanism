@@ -41,6 +41,8 @@ int main(void)
 	rtc_init();
 	rtc_set_alarm();
 
+	adc_init();
+
 	while (1)
 	{
 		rtc_calendar_read(&time);
