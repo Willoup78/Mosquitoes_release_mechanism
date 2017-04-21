@@ -75,7 +75,8 @@ src/main.o: ../src/main.c \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/uart_printf.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/pwm_input.h \
- C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/main.h:
 
@@ -230,3 +231,5 @@ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/ha
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/pwm_input.h:
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h:

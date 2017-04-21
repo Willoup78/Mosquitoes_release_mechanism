@@ -13,6 +13,7 @@
 #include "uart_printf.h"
 #include "pwm_input.h"
 #include "rtc.h"
+#include "adc_input.h"
 
 /* Private typedef -----------------------------------------------------------*/
 
@@ -31,8 +32,6 @@ static void SystemClock_Config(void);
   */
 int main(void)
 {
-	Time time;
-
 	HAL_Init();
 	/* Configure the system clock to 180 MHz */
 	SystemClock_Config();
@@ -45,8 +44,7 @@ int main(void)
 
 	while (1)
 	{
-		rtc_calendar_read(&time);
-		//printf("%d-%d-%d(%d), %d:%d:%d\n\r", time.years, time.months, time.date, time.weekday, time.hours, time.minutes, time.seconds);
+
 	}
 }
 

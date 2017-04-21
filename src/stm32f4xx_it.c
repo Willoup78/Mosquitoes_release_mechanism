@@ -23,6 +23,7 @@
 extern TIM_HandleTypeDef TimHandle; //First declaration in pwm_input.c
 extern RTC_HandleTypeDef RtcHandle; //First declaration in rtc.c
 extern ADC_HandleTypeDef AdcHandle; //First declaration in adc_input.c
+extern DMA_HandleTypeDef DmaHandle; //First declaration in adc_input.c
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -80,4 +81,14 @@ void RTC_Alarm_IRQHandler(void)
 void ADC_IRQHandler(void)
 {
   HAL_ADC_IRQHandler(&AdcHandle);
+}
+
+/**
+  * @brief  This function handles DMA2 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void DMA2_Stream4_IRQHandler()
+{
+	HAL_DMA_IRQHandler(&DmaHandle);
 }

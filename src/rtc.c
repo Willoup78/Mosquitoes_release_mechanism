@@ -10,13 +10,12 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "rtc.h"
+#include "adc_input.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 RTC_HandleTypeDef RtcHandle;
-
-uint32_t sec = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 void rtc_calendar_config(void);
@@ -122,5 +121,17 @@ void rtc_set_alarm(void)
   */
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
 {
-	// DO SOME STUFF EVERY SECONDS !!
+	uint16_t sensor_value[NB_ADC_SENSOR];
+	Time time;
+
+	rtc_calendar_read(&time);
+	adc_read_data(sensor_value);
+
+	printf("%d-%d-%d, %d:%d:%d --> ", time.years, time.months, time.date, time.hours, time.minutes, time.seconds);
+
+	for (uint8_t i=0 ; i<NB_ADC_SENSOR ; i++)
+	{
+		printf("%d /", sensor_value[i]);
+	}
+	printf("\n\r");
 }

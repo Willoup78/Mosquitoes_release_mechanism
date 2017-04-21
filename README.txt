@@ -38,5 +38,18 @@
  An alarm is set to call a callback everysecond. This allows us to measure external
  signal at a given rate.
  
+ --> adc_input (.c and .h)
+The file contains all the function to initialize the ADC with a DMA storage. The value 
+are stored at very high frequency inside the DMA buffer. Then when the buffer is full
+the ADC callback is called and the first values from the buffer are extracted in value[]. The DMA 
+buffer is needed because the ADC can run in background without interrupting the CPU at each 
+completed sequence of conversion (conversion of all the channels). This allows to run the ADC
+at whatever frequency without risking to have an ADC interruption when an other task is performed.
+Finally, the data from the intermediate buffer value[] can be read with a dedicated function (adc_read_data).
+To add other input, the following steps need to be done :
+	- configure the channel in adc_init (adc_input.c)
+	- configure the GPIO in HAL_ADC_MspInit (hal_msp.c)
+	- change the number of sensor constant NB_ADC_SENSOR (adc_input.h)
+ 
  
  

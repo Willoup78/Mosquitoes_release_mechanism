@@ -178,10 +178,11 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 	GPIO_InitTypeDef          GPIO_InitStruct;
 
 	/*##-1- Enable peripherals and GPIO Clocks #################################*/
-	/* ADC3 Periph clock enable */
+	/* ADC1 Periph clock enable */
 	ADCx_CLK_ENABLE();
 	/* Enable GPIO clock ****************************************/
-	ADCx_CHANNEL_GPIO_CLK_ENABLE();
+	ADCx_CHANNEL_GPIO_CLK_ENABLE(); //Port A
+	__HAL_RCC_GPIOB_CLK_ENABLE(); //Port B
 
 	/*##-2- Configure peripheral GPIO ##########################################*/
 	/* ADC Channel GPIO pin configuration */
@@ -189,6 +190,11 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(ADCx_CHANNEL_GPIO_PORT, &GPIO_InitStruct);
+
+	GPIO_InitStruct.Pin = GPIO_PIN_0;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); //PB0
 
 	/*##-3- Configure the NVIC #################################################*/
 	/* NVIC configuration for ADC interrupt */

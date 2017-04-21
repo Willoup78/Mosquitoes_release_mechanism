@@ -34,6 +34,7 @@ void SysTick_Handler(void);
 void TIMx_IRQHandler(void);
 void RTC_Alarm_IRQHandler(void);
 void ADC_IRQHandler(void);
+void DMA2_Stream4_IRQHandler(void);
 
 #ifdef __cplusplus
 }
