@@ -25,6 +25,11 @@ extern RTC_HandleTypeDef RtcHandle; //First declaration in rtc.c
 extern ADC_HandleTypeDef AdcHandle; //First declaration in adc_input.c
 extern DMA_HandleTypeDef DmaHandle; //First declaration in adc_input.c
 
+//NEW
+extern TIM_HandleTypeDef hTimPwm1;
+extern TIM_HandleTypeDef hTimPwm2;
+extern TIM_HandleTypeDef hTimPwm3;
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -92,3 +97,49 @@ void DMA2_Stream4_IRQHandler()
 {
 	HAL_DMA_IRQHandler(&DmaHandle);
 }
+
+
+// NEW
+
+/**
+  * @brief  This function handles interrupt for External lines 10 to 15
+  * @param  None
+  * @retval None
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+}
+
+/**
+  * @brief  This function handles TIM2 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void TIM2_IRQHandler(void)
+{
+  HAL_TIM_IRQHandler(&hTimPwm2);
+}
+
+/**
+  * @brief  This function handles TIM3 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void TIM3_IRQHandler(void)
+{
+  HAL_TIM_IRQHandler(&hTimPwm1);
+}
+
+/**
+  * @brief  This function handles TIM4 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void TIM4_IRQHandler(void)
+{
+  HAL_TIM_IRQHandler(&hTimPwm3);
+}
+
+
+

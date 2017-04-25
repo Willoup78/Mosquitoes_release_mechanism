@@ -127,11 +127,11 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
 	rtc_calendar_read(&time);
 	adc_read_data(sensor_value);
 
-	printf("%d-%d-%d, %d:%d:%d --> ", time.years, time.months, time.date, time.hours, time.minutes, time.seconds);
+	//printf("%d-%d-%d, %d:%d:%d --> ", time.years, time.months, time.date, time.hours, time.minutes, time.seconds);
 
 	for (uint8_t i=0 ; i<NB_ADC_SENSOR ; i++)
 	{
-		printf("%d /", sensor_value[i]);
+		//printf("%d /", sensor_value[i]);
 	}
-	printf("\n\r");
+	//printf("\n\r");
 }

@@ -50,6 +50,20 @@ To add other input, the following steps need to be done :
 	- configure the channel in adc_init (adc_input.c)
 	- configure the GPIO in HAL_ADC_MspInit (hal_msp.c)
 	- change the number of sensor constant NB_ADC_SENSOR (adc_input.h)
+	
+--> STEPPER DRIVER files (in order of abstraction, HIGH to LOW)
+	--> stepper (.c and .h)
+	All the functions needed to init and set up a speed to the stepper
+	
+	--> motorcontrol (.c and .h) and motor.h
+	Functions to handle differents kind of motor, highest level of abstraction of the motor library of ST
+	
+	--> L6474 (.c and .h) and L6474_target_config.h
+	Functions to handle the driver on the nucleo expansion board
+	
+	--> stm32f4xx_nucleo_ihm01a1 (.c and .h)
+	Low hardware functions to make the link between the STM32F4 board and the expansion board
+	
  
  
  

@@ -4,34 +4,46 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/L6474.c \
 ../src/adc_input.c \
 ../src/hal_msp.c \
 ../src/main.c \
+../src/motorcontrol.c \
 ../src/pwm_input.c \
 ../src/rtc.c \
+../src/stepper.c \
 ../src/stm32f4xx_it.c \
+../src/stm32f4xx_nucleo_ihm01a1.c \
 ../src/syscalls.c \
 ../src/system_stm32f4xx.c \
 ../src/uart_printf.c 
 
 OBJS += \
+./src/L6474.o \
 ./src/adc_input.o \
 ./src/hal_msp.o \
 ./src/main.o \
+./src/motorcontrol.o \
 ./src/pwm_input.o \
 ./src/rtc.o \
+./src/stepper.o \
 ./src/stm32f4xx_it.o \
+./src/stm32f4xx_nucleo_ihm01a1.o \
 ./src/syscalls.o \
 ./src/system_stm32f4xx.o \
 ./src/uart_printf.o 
 
 C_DEPS += \
+./src/L6474.d \
 ./src/adc_input.d \
 ./src/hal_msp.d \
 ./src/main.d \
+./src/motorcontrol.d \
 ./src/pwm_input.d \
 ./src/rtc.d \
+./src/stepper.d \
 ./src/stm32f4xx_it.d \
+./src/stm32f4xx_nucleo_ihm01a1.d \
 ./src/syscalls.d \
 ./src/system_stm32f4xx.d \
 ./src/uart_printf.d 

@@ -72,6 +72,9 @@ src/rtc.o: ../src/rtc.c \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/HAL_Driver/Inc/stm32f4xx_hal_fmpi2c_ex.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/HAL_Driver/Inc/stm32f4xx_hal_spdifrx.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stm32f4xx_nucleo_ihm01a1.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/Utilities/STM32F4xx-Nucleo/stm32f4xx_nucleo.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h:
@@ -219,5 +222,11 @@ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/HAL_Dr
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/HAL_Driver/Inc/stm32f4xx_hal_spdifrx.h:
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stm32f4xx_nucleo_ihm01a1.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/Utilities/STM32F4xx-Nucleo/stm32f4xx_nucleo.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h:
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h:

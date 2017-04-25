@@ -14,9 +14,9 @@
 #include "pwm_input.h"
 #include "rtc.h"
 #include "adc_input.h"
+#include "stepper.h"
 
 /* Private typedef -----------------------------------------------------------*/
-
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -42,9 +42,11 @@ int main(void)
 
 	adc_init();
 
+	stepper_init();
+	stepper_set_speed(120, FORWARD);
+
 	while (1)
 	{
-
 	}
 }
 
@@ -112,3 +114,6 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
   HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
 }
+
+
+

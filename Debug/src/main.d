@@ -74,9 +74,15 @@ src/main.o: ../src/main.c \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/Utilities/STM32F4xx-Nucleo/stm32f4xx_nucleo.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/uart_printf.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stm32f4xx_nucleo_ihm01a1.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/pwm_input.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h \
- C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stepper.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motorcontrol.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/L6474.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/l6474_target_config.h
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/main.h:
 
@@ -228,8 +234,20 @@ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/ua
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h:
 
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stm32f4xx_nucleo_ihm01a1.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h:
+
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/pwm_input.h:
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h:
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stepper.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motorcontrol.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/L6474.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/l6474_target_config.h:
