@@ -108,8 +108,19 @@ void DMA2_Stream4_IRQHandler()
   */
 void EXTI15_10_IRQHandler(void)
 {
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_13) != RESET)
+		HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+
+	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_14) != RESET)
+		HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_14);
+
+	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_15) != RESET)
+		HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
 }
+
+
+
+
 
 /**
   * @brief  This function handles TIM2 interrupt request.

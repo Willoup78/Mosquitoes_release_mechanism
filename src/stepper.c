@@ -42,10 +42,26 @@ L6474_Init_t gL6474InitParams =
      L6474_ALARM_EN_WRONG_NPERF_CMD)    /// Alarm (ALARM_EN register).
 };
 
+uint16_t target_speed;
+uint16_t stepper_speed;
+
 /* Private function prototypes -----------------------------------------------*/
 static void MyFlagInterruptHandler(void);
 
 /* Private functions ---------------------------------------------------------*/
+
+void stepper_set_target_belt_speed(uint16_t adc_value)
+{
+	uint16_t scale = STEPPER_SPEED_MAX - STEPPER_SPEED_MIN;
+	float divider = 4096 / scale;
+
+	target_speed = (uint16_t)((float)adc_value / divider);
+}
+
+uint16_t stepper_get_target_belt_speed()
+{
+	return target_speed;
+}
 
 /**
   * @brief  Set the new speed [rpm] and go to this speed. Not depending of the step_mode
@@ -163,24 +179,24 @@ void MyFlagInterruptHandler(void)
   if ((statusRegister & L6474_STATUS_UVLO) == 0)
   {
 
-	  printf("Undervoltage shunt down < 7.2V");
+	  //printf("Undervoltage shunt down < 7.2V");
   }
 
   /* Check TH_WRN flag: if not set, the thermal warning threshold is reached (130C) */
   if ((statusRegister & L6474_STATUS_TH_WRN) == 0)
   {
-	  printf("Thermal warning 130C");
+	  //printf("Thermal warning 130C");
   }
 
   /* Check TH_SHD flag: if not set, the thermal shut down threshold is reached (160C)*/
   if ((statusRegister & L6474_STATUS_TH_SD) == 0)
   {
-	  printf("Thermal shunt down 160C");
+	  //printf("Thermal shunt down 160C");
   }
 
   /* Check OCD  flag: if not set, there is an overcurrent detection */
   if ((statusRegister & L6474_STATUS_OCD) == 0)
   {
-	  printf("Overcurrent detection\n\r");
+	  //printf("Overcurrent detection\n\r");
   }
 }

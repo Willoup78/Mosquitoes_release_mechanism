@@ -74,7 +74,9 @@ src/uart_printf.o: ../src/uart_printf.c \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stm32f4xx_nucleo_ihm01a1.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/Utilities/STM32F4xx-Nucleo/stm32f4xx_nucleo.h \
- C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/uart_printf.h:
 
@@ -227,3 +229,7 @@ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/st
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/Utilities/STM32F4xx-Nucleo/stm32f4xx_nucleo.h:
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/adc_input.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h:

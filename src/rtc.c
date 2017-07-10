@@ -11,6 +11,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "rtc.h"
 #include "adc_input.h"
+#include "lcd.h"
+#include "uart_printf.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -121,17 +123,33 @@ void rtc_set_alarm(void)
   */
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
 {
-	uint16_t sensor_value[NB_ADC_SENSOR];
+	adc_belt_speed();
+
+	lcd_display(NONE);
+
+	uart_sd_recording();
+
+}
+
+void rtc_delay_sec(uint8_t delay)
+{
 	Time time;
+	uint8_t entry_time;
+	uint8_t exit_time;
 
 	rtc_calendar_read(&time);
-	adc_read_data(sensor_value);
+	entry_time = time.seconds;
 
-	//printf("%d-%d-%d, %d:%d:%d --> ", time.years, time.months, time.date, time.hours, time.minutes, time.seconds);
+	exit_time = entry_time + delay;
 
-	for (uint8_t i=0 ; i<NB_ADC_SENSOR ; i++)
+	if (exit_time > 60)
 	{
-		//printf("%d /", sensor_value[i]);
+		exit_time = exit_time - 60;
 	}
-	//printf("\n\r");
+
+	while (time.seconds != exit_time)
+	{
+		rtc_calendar_read(&time);
+	}
+
 }

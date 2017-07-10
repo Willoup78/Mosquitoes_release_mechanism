@@ -10,6 +10,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "hal_msp.h"
+#include "lcd.h"
+#include "rtc.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -19,6 +21,7 @@
 //NEW
 extern void BSP_MotorControl_StepClockHandler(uint8_t deviceId);
 extern void BSP_MotorControl_FlagInterruptHandler(void);
+extern motorState_t BSP_MotorControl_GetDeviceState(uint8_t deviceId);
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -65,31 +68,56 @@ void HAL_TIM_IC_MspInit(TIM_HandleTypeDef *htim)
   */
 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
+	if(huart->Instance==USART2)
+	{
+		GPIO_InitTypeDef  GPIO_InitStruct;
 
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* Enable GPIO TX/RX clock */
-  USARTx_TX_GPIO_CLK_ENABLE();
-  USARTx_RX_GPIO_CLK_ENABLE();
+		/*##-1- Enable peripherals and GPIO Clocks #################################*/
+		/* Enable GPIO TX/RX clock */
+		USARTx_TX_GPIO_CLK_ENABLE();
+		USARTx_RX_GPIO_CLK_ENABLE();
 
-  /* Enable USARTx clock */
-  USARTx_CLK_ENABLE();
+		/* Enable USARTx clock */
+		USARTx_CLK_ENABLE();
 
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* UART TX GPIO pin configuration  */
-  GPIO_InitStruct.Pin       = USARTx_TX_PIN;
-  GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull      = GPIO_PULLUP;
-  GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-  GPIO_InitStruct.Alternate = USARTx_TX_AF;
+		/*##-2- Configure peripheral GPIO ##########################################*/
+		/* UART TX GPIO pin configuration  */
+		GPIO_InitStruct.Pin       = USARTx_TX_PIN;
+		GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull      = GPIO_PULLUP;
+		GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
+		GPIO_InitStruct.Alternate = USARTx_TX_AF;
 
-  HAL_GPIO_Init(USARTx_TX_GPIO_PORT, &GPIO_InitStruct);
+		HAL_GPIO_Init(USARTx_TX_GPIO_PORT, &GPIO_InitStruct);
 
-  /* UART RX GPIO pin configuration  */
-  GPIO_InitStruct.Pin = USARTx_RX_PIN;
-  GPIO_InitStruct.Alternate = USARTx_RX_AF;
+		/* UART RX GPIO pin configuration  */
+		GPIO_InitStruct.Pin = USARTx_RX_PIN;
+		GPIO_InitStruct.Alternate = USARTx_RX_AF;
 
-  HAL_GPIO_Init(USARTx_RX_GPIO_PORT, &GPIO_InitStruct);
+		HAL_GPIO_Init(USARTx_RX_GPIO_PORT, &GPIO_InitStruct);
+	}
+
+	if(huart->Instance==USART3)
+	{
+		GPIO_InitTypeDef  GPIO_InitStruct;
+
+		/*##-1- Enable peripherals and GPIO Clocks #################################*/
+		/* Enable GPIO TX/RX clock */
+		__HAL_RCC_GPIOC_CLK_ENABLE();
+
+		/* Enable USARTx clock */
+		__HAL_RCC_USART3_CLK_ENABLE();
+
+		/*##-2- Configure peripheral GPIO ##########################################*/
+		/* UART TX GPIO pin configuration  */
+		GPIO_InitStruct.Pin       = GPIO_PIN_10 | GPIO_PIN_11;
+		GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull      = GPIO_PULLUP;
+		GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
+		GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
+
+		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	}
 }
 
 /**
@@ -102,15 +130,34 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
   */
 void HAL_UART_MspDeInit(UART_HandleTypeDef *huart)
 {
-  /*##-1- Reset peripherals ##################################################*/
-  USARTx_FORCE_RESET();
-  USARTx_RELEASE_RESET();
+	if(huart->Instance==USART2)
+	{
+		/*##-1- Reset peripherals ##################################################*/
+		USARTx_FORCE_RESET();
+		USARTx_RELEASE_RESET();
 
-  /*##-2- Disable peripherals and GPIO Clocks #################################*/
-  /* Configure UART Tx as alternate function  */
-  HAL_GPIO_DeInit(USARTx_TX_GPIO_PORT, USARTx_TX_PIN);
-  /* Configure UART Rx as alternate function  */
-  HAL_GPIO_DeInit(USARTx_RX_GPIO_PORT, USARTx_RX_PIN);
+		/*##-2- Disable peripherals and GPIO Clocks #################################*/
+		/* Configure UART Tx as alternate function  */
+		HAL_GPIO_DeInit(USARTx_TX_GPIO_PORT, USARTx_TX_PIN);
+		/* Configure UART Rx as alternate function  */
+		HAL_GPIO_DeInit(USARTx_RX_GPIO_PORT, USARTx_RX_PIN);
+	}
+
+	if(huart->Instance == USART3)
+	{
+		__HAL_RCC_USART3_FORCE_RESET();
+		__HAL_RCC_USART3_RELEASE_RESET();
+
+		/*##-2- Disable peripherals and GPIO Clocks #################################*/
+		/* Configure UART Tx as alternate function  */
+		HAL_GPIO_DeInit(GPIOC, GPIO_PIN_10);
+		/* Configure UART Rx as alternate function  */
+		HAL_GPIO_DeInit(GPIOC, GPIO_PIN_11);
+
+
+
+	}
+
 
 }
 
@@ -182,22 +229,48 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 
 	/*##-1- Enable peripherals and GPIO Clocks #################################*/
 	/* ADC1 Periph clock enable */
-	ADCx_CLK_ENABLE();
+	__HAL_RCC_ADC1_CLK_ENABLE();
 	/* Enable GPIO clock ****************************************/
-	ADCx_CHANNEL_GPIO_CLK_ENABLE(); //Port A
+	__HAL_RCC_GPIOA_CLK_ENABLE(); //Port A
 	__HAL_RCC_GPIOB_CLK_ENABLE(); //Port B
+	__HAL_RCC_GPIOC_CLK_ENABLE(); //Port C
 
 	/*##-2- Configure peripheral GPIO ##########################################*/
 	/* ADC Channel GPIO pin configuration */
-	GPIO_InitStruct.Pin = ADCx_CHANNEL_PIN;
+	GPIO_InitStruct.Pin = GPIO_PIN_0;
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(ADCx_CHANNEL_GPIO_PORT, &GPIO_InitStruct);
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); //PA0
+
+	GPIO_InitStruct.Pin = GPIO_PIN_1;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); //PA1
+
+	GPIO_InitStruct.Pin = GPIO_PIN_4;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); //PA4
 
 	GPIO_InitStruct.Pin = GPIO_PIN_0;
 	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); //PB0
+
+	GPIO_InitStruct.Pin = GPIO_PIN_1;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); //PC1
+
+	GPIO_InitStruct.Pin = GPIO_PIN_0;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); //PC0
+
+	GPIO_InitStruct.Pin = GPIO_PIN_2;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); //PC2
 
 	/*##-3- Configure the NVIC #################################################*/
 	/* NVIC configuration for ADC interrupt */
@@ -441,8 +514,44 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
   */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  if (GPIO_Pin == BSP_MOTOR_CONTROL_BOARD_FLAG_PIN)
-  {
-    BSP_MotorControl_FlagInterruptHandler();
-  }
- }
+	static bool start = 0;
+	Time time;
+	static uint8_t entry_time = 0;
+	uint8_t current_time;
+	uint8_t delay;
+
+	static bool key_press = 0;
+
+	if (GPIO_Pin == BSP_MOTOR_CONTROL_BOARD_FLAG_PIN)
+	{
+	BSP_MotorControl_FlagInterruptHandler();
+	}
+
+	if (GPIO_Pin == GPIO_PIN_13) // LEFT PC13
+	{
+		lcd_display(LEFT);
+	}
+
+	if (GPIO_Pin == GPIO_PIN_14) //RIGHT PB14
+	{
+		lcd_display(RIGHT);
+	}
+
+	if (GPIO_Pin == GPIO_PIN_15) //START/STOP PB15
+	{
+		rtc_calendar_read(&time);
+		current_time = time.seconds;
+
+		if (start == 1 && (current_time-entry_time) > 2)
+		{
+			lcd_change_status(FINISH);
+		}
+
+		if(start == 0)
+		{
+			entry_time = time.seconds;
+			lcd_change_status(START);
+			start = 1;
+		}
+	}
+}

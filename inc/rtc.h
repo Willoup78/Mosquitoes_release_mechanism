@@ -34,5 +34,6 @@ struct Time
 void rtc_init(void);
 void rtc_calendar_read(Time* time);
 void rtc_set_alarm(void);
+void rtc_delay_sec(uint8_t delay);
 
 #endif /* RTC_H_ */

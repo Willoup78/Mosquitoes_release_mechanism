@@ -88,6 +88,7 @@
 "src/L6474.o"
 "src/adc_input.o"
 "src/hal_msp.o"
+"src/lcd.o"
 "src/main.o"
 "src/motorcontrol.o"
 "src/pwm_input.o"

@@ -7,6 +7,7 @@ C_SRCS += \
 ../src/L6474.c \
 ../src/adc_input.c \
 ../src/hal_msp.c \
+../src/lcd.c \
 ../src/main.c \
 ../src/motorcontrol.c \
 ../src/pwm_input.c \
@@ -22,6 +23,7 @@ OBJS += \
 ./src/L6474.o \
 ./src/adc_input.o \
 ./src/hal_msp.o \
+./src/lcd.o \
 ./src/main.o \
 ./src/motorcontrol.o \
 ./src/pwm_input.o \
@@ -37,6 +39,7 @@ C_DEPS += \
 ./src/L6474.d \
 ./src/adc_input.d \
 ./src/hal_msp.d \
+./src/lcd.d \
 ./src/main.d \
 ./src/motorcontrol.d \
 ./src/pwm_input.d \

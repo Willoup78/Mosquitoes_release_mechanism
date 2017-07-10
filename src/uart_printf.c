@@ -7,6 +7,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "uart_printf.h"
+#include "adc_input.h"
+#include "rtc.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,11 +38,28 @@ void uart_printf_init(void)
 	  UartHandle.Init.BaudRate     = 9600;
 	  UartHandle.Init.WordLength   = UART_WORDLENGTH_8B;
 	  UartHandle.Init.StopBits     = UART_STOPBITS_1;
-	  UartHandle.Init.Parity       = UART_PARITY_ODD;
+	  UartHandle.Init.Parity       = UART_PARITY_NONE;
 	  UartHandle.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
 	  UartHandle.Init.Mode         = UART_MODE_TX_RX;
 	  UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
 	  HAL_UART_Init(&UartHandle);
+}
+
+void uart_sd_recording()
+{
+	uint16_t sensor_value[NB_ADC_SENSOR];
+	Time time;
+
+	rtc_calendar_read(&time);
+	adc_read_data(sensor_value);
+
+	printf("%d %d %d ", time.hours, time.minutes, time.seconds);
+
+	for (uint8_t i=0 ; i<NB_ADC_SENSOR ; i++)
+	{
+		printf("%d ", sensor_value[i]);
+	}
+	printf("\n\r");
 }
 
 /**

@@ -12,10 +12,12 @@
 #include "stm32f4xx_hal.h"
 #include "hal_msp.h"
 
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void uart_printf_init(void);
+void uart_sd_recording(void);
 
 #endif /* UART_PRINTF_H_ */
