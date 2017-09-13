@@ -32,10 +32,10 @@ endif
 all: Mos.elf
 
 # Tool invocations
-Mos.elf: $(OBJS) $(USER_OBJS) C:\Users\William\Documents\Projects\Mosquitoes_release_mechanism_soft\Mos\LinkerScript.ld
+Mos.elf: $(OBJS) $(USER_OBJS) C:\Users\Jurg\git\Mosquitoes_release_mechanism\LinkerScript.ld
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU GCC Linker'
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"C:\Users\William\Documents\Projects\Mosquitoes_release_mechanism_soft\Mos\LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -lm -o "Mos.elf" @"objects.list" $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"C:\Users\Jurg\git\Mosquitoes_release_mechanism\LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -lm -o "Mos.elf" @"objects.list" $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build

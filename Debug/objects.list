@@ -98,5 +98,6 @@
 "src/stm32f4xx_nucleo_ihm01a1.o"
 "src/syscalls.o"
 "src/system_stm32f4xx.o"
+"src/uart2drone.o"
 "src/uart_printf.o"
 "startup/startup_stm32f446xx.o"

@@ -18,6 +18,7 @@
 #include "adc_input.h"
 #include "stepper.h"
 #include "lcd.h"
+#include "uart2drone.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -27,10 +28,12 @@
 static void SystemClock_Config(void);
 
 //static void EXTI1_IRQHandler_Config(void);
-
+extern UART_HandleTypeDef Uart3Handle;
+extern UART_HandleTypeDef UartHandle;
+UART_HandleTypeDef huart1;
 
 /* Private functions ---------------------------------------------------------*/
-
+static void MX_USART1_UART_Init(void);
 /**
   * @brief  Main program
   * @param  None
@@ -49,6 +52,10 @@ int main(void)
 
 	uart_printf_init();
 
+	MX_USART1_UART_Init();
+	__HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
+
+
 	rtc_init();
 	rtc_set_alarm();
 
@@ -57,13 +64,33 @@ int main(void)
 
 	stepper_init();
 	stepper_run(1);
-	stepper_set_speed(1);
+	stepper_set_speed(0);
+
+	//Added JG
+	uart3_init();
+	__HAL_UART_ENABLE_IT(&Uart3Handle, UART_IT_RXNE);
 
 
-
+	int once = 1;
 	while (1)
 	{
 
+		if(once){
+					once = 0;
+					printf("Hello world!\n\r");
+
+					if (HAL_UART_GetState(&huart1) == HAL_UART_STATE_READY)
+					{
+						printf("USART1 ready!\n\r");
+					}
+
+//
+//					//send something on uart1
+//					uint8_t *ch = "hello";
+//					HAL_UART_Transmit(&huart1, &ch, 1, 100);
+//
+//					stepper_set_speed(20, BACKWARD);
+				}
 
 	}
 
@@ -155,5 +182,39 @@ void SystemClock_Config(void)
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 }*/
 
+/* USART1 init function */
+static void MX_USART1_UART_Init(void)
+{
 
+	//__HAL_RCC_GPIOB_CLK_ENABLE();
+
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @param  None
+  * @retval None
+  */
+void _Error_Handler(char * file, int line)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+  while(1)
+  {
+  }
+  /* USER CODE END Error_Handler_Debug */
+}
 

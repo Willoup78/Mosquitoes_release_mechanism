@@ -30,6 +30,11 @@ extern TIM_HandleTypeDef hTimPwm1;
 extern TIM_HandleTypeDef hTimPwm2;
 extern TIM_HandleTypeDef hTimPwm3;
 
+extern UART_HandleTypeDef Uart3Handle;
+extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef UartHandle;
+uint16_t currentChar[2];
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -156,6 +161,87 @@ void TIM4_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&hTimPwm3);
 }
+
+
+/**
+* @brief This function handles USART1 global interrupt.
+this function is called everytime a byte is sent over the line
+hence we need to check if the end of the message has been reached / or agree on a length of transmission
+*/
+void USART3_IRQHandler(void)
+{
+	/* USER CODE BEGIN USART1_IRQn 0 */
+
+	/* USER CODE END USART1_IRQn 0 */
+	HAL_UART_IRQHandler(&Uart3Handle);
+
+	/* USER CODE BEGIN USART1_IRQn 1 */
+	uint8_t buff_ACK[12] = "Receiving command from drone to update motor speed!";
+	HAL_UART_Transmit(&UartHandle, buff_ACK, 12, 100);
+
+	//uint8_t buff_ACK[12] = "Interrupt 3 ";
+	//HAL_UART_Transmit(&UartHandle, buff_ACK, 12, 100);
+
+	//uint8_t buff_RX[10];
+	// this function will write the received bytes into the buffer
+	//returns HAL_OK
+	HAL_UART_Receive_IT(&Uart3Handle, currentChar, 1);
+
+	//HAL_UART_Transmit(&UartHandle, currentChar, 6, 100);
+
+}
+
+/**
+  * @brief  Rx Transfer completed callbacks.
+  * @param  huart: pointer to a UART_HandleTypeDef structure that contains
+  *                the configuration information for the specified UART module.
+  * @retval None
+  */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+
+	//if huart = huart1
+	//uint8_t buff_ACK[15] = "Interrupt 3: ";
+	//HAL_UART_Transmit(&UartHandle, buff_ACK, 15, 100);
+
+//		uint8_t buff_ACK[15] = "received data: ";
+//		HAL_UART_Transmit(&huart2, buff_ACK, 15, 100);
+
+
+	// currentChar contains now the message
+	HAL_UART_Transmit(&UartHandle, currentChar, 1, 100);
+	//printf("received data: %c", );
+	if(huart->Instance == USART3){
+		stepper_set_speed(5);
+	}
+
+}
+
+/**
+* @brief This function handles USART1 global interrupt.
+this function is called everytime a byte is sent over the line
+hence we need to check if the end of the message has been reached / or agree on a length of transmission
+*/
+void USART1_IRQHandler(void)
+{
+	/* USER CODE BEGIN USART1_IRQn 0 */
+
+	/* USER CODE END USART1_IRQn 0 */
+	HAL_UART_IRQHandler(&huart1);
+
+	/* USER CODE BEGIN USART1_IRQn 1 */
+	uint8_t buff_ACK[12] = "Interrupt 1 ";
+	HAL_UART_Transmit(&UartHandle, buff_ACK, 12, 100);
+
+	//uint8_t buff_RX[10];
+	// this function will write the received bytes into the buffer
+	//returns HAL_OK
+	HAL_UART_Receive_IT(&huart1, currentChar, 1);
+
+	//HAL_UART_Transmit(&UartHandle, currentChar, 6, 100);
+
+}
+
+
 
 
 

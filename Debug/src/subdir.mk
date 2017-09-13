@@ -17,6 +17,7 @@ C_SRCS += \
 ../src/stm32f4xx_nucleo_ihm01a1.c \
 ../src/syscalls.c \
 ../src/system_stm32f4xx.c \
+../src/uart2drone.c \
 ../src/uart_printf.c 
 
 OBJS += \
@@ -33,6 +34,7 @@ OBJS += \
 ./src/stm32f4xx_nucleo_ihm01a1.o \
 ./src/syscalls.o \
 ./src/system_stm32f4xx.o \
+./src/uart2drone.o \
 ./src/uart_printf.o 
 
 C_DEPS += \
@@ -49,6 +51,7 @@ C_DEPS += \
 ./src/stm32f4xx_nucleo_ihm01a1.d \
 ./src/syscalls.d \
 ./src/system_stm32f4xx.d \
+./src/uart2drone.d \
 ./src/uart_printf.d 
 
 
@@ -57,7 +60,7 @@ src/%.o: ../src/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo %cd%
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32F446RETx -DNUCLEO_F446RE -DSTM32F4 -DSTM32 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/CMSIS/core" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/CMSIS/device" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/HAL_Driver/Inc/Legacy" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/HAL_Driver/Inc" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/Utilities/STM32F4xx-Nucleo" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32F446RETx -DNUCLEO_F446RE -DSTM32F4 -DSTM32 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/inc" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/CMSIS/core" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/CMSIS/device" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/HAL_Driver/Inc/Legacy" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/HAL_Driver/Inc" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/Utilities/STM32F4xx-Nucleo" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

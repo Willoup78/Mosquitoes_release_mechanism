@@ -1,7 +1,7 @@
 src/motorcontrol.o: ../src/motorcontrol.c \
- C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motorcontrol.h \
- C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h
+ C:/Users/Jurg/git/Mosquitoes_release_mechanism/inc/motorcontrol.h \
+ C:/Users/Jurg/git/Mosquitoes_release_mechanism/inc/motor.h
 
-C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motorcontrol.h:
+C:/Users/Jurg/git/Mosquitoes_release_mechanism/inc/motorcontrol.h:
 
-C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h:
+C:/Users/Jurg/git/Mosquitoes_release_mechanism/inc/motor.h:

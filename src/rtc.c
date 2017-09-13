@@ -126,7 +126,7 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
 {
 	//adc_belt_speed();
 	//stepper_set_speed(5);
-	uart_sd_recording();
+	//uart_sd_recording();
 }
 
 void rtc_delay_sec(uint8_t delay)

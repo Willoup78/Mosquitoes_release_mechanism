@@ -15,7 +15,7 @@ startup/%.o: ../startup/%.s
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Assembler'
 	@echo %cd%
-	arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/CMSIS/core" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/CMSIS/device" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/HAL_Driver/Inc/Legacy" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/HAL_Driver/Inc" -I"C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/Utilities/STM32F4xx-Nucleo" -g -o "$@" "$<"
+	arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/inc" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/CMSIS/core" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/CMSIS/device" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/HAL_Driver/Inc/Legacy" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/HAL_Driver/Inc" -I"C:/Users/Jurg/git/Mosquitoes_release_mechanism/Utilities/STM32F4xx-Nucleo" -g -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

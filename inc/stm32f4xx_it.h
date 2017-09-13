@@ -44,6 +44,11 @@ void TIM2_IRQHandler(void);
 void TIM3_IRQHandler(void);
 void TIM4_IRQHandler(void);
 
+void USART3_IRQHandler(void);
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
+
+void USART1_IRQHandler(void);
+
 #ifdef __cplusplus
 }
 #endif
