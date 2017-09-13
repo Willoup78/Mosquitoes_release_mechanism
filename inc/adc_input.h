@@ -17,8 +17,8 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-#define ADC_BUFFER_LENGTH 600 //Should be multiple of NB_ADC_SENSOR to avoid shift in the data
-#define NB_ADC_SENSOR 6//Number of sensor inputs
+#define ADC_BUFFER_LENGTH 100 //Should be multiple of NB_ADC_SENSOR to avoid shift in the data
+#define NB_ADC_SENSOR 5//Number of sensor inputs
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

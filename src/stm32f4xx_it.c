@@ -102,20 +102,25 @@ void DMA2_Stream4_IRQHandler()
 // NEW
 
 /**
-  * @brief  This function handles interrupt for External lines 10 to 15
+  * @brief  This function handles interrupt for External lines 1
   * @param  None
   * @retval None
   */
+
+/*void EXTI1_IRQHandler(void)
+{
+	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
+}*/
+
+/**
+  * @brief  This function handles interrupt for External lines 1
+  * @param  None
+  * @retval None
+  */
+
 void EXTI15_10_IRQHandler(void)
 {
-	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_13) != RESET)
-		HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
-
-	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_14) != RESET)
-		HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_14);
-
-	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_15) != RESET)
-		HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
+	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
 }
 
 

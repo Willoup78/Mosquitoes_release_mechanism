@@ -11,6 +11,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "adc_input.h"
 #include "stdlib.h"
+#include "stepper.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -74,19 +75,11 @@ void adc_init(void)
 	sConfig.Offset       = 0;
 	HAL_ADC_ConfigChannel(&AdcHandle, &sConfig); //PA1
 
-	sConfig.Channel      = ADC_CHANNEL_4;
+	sConfig.Channel      = ADC_CHANNEL_8;
 	sConfig.Rank         = 3;
 	sConfig.SamplingTime = ADC_SAMPLETIME_84CYCLES;
 	sConfig.Offset       = 0;
-	HAL_ADC_ConfigChannel(&AdcHandle, &sConfig); //PA4
-
-/*
-	sConfig.Channel      = ADC_CHANNEL_8;
-	sConfig.Rank         = 4;
-	sConfig.SamplingTime = ADC_SAMPLETIME_84CYCLES;
-	sConfig.Offset       = 0;
 	HAL_ADC_ConfigChannel(&AdcHandle, &sConfig); //PB0
-*/
 
 	sConfig.Channel      = ADC_CHANNEL_11;
 	sConfig.Rank         = 4;
@@ -99,13 +92,6 @@ void adc_init(void)
 	sConfig.SamplingTime = ADC_SAMPLETIME_84CYCLES;
 	sConfig.Offset       = 0;
 	HAL_ADC_ConfigChannel(&AdcHandle, &sConfig); //PC0
-
-	sConfig.Channel      = ADC_CHANNEL_12;
-	sConfig.Rank         = 6;
-	sConfig.SamplingTime = ADC_SAMPLETIME_84CYCLES;
-	sConfig.Offset       = 0;
-	HAL_ADC_ConfigChannel(&AdcHandle, &sConfig); //PC2
-
 
 
 	/*##-3 Configure DMA ########################################################*/
@@ -180,11 +166,28 @@ void adc_belt_speed()
 
 	adc_read_data(sensor_value);
 
-	belt_speed = sensor_value[NB_ADC_SENSOR-1]; // [adc unit 0-4096]
+	belt_speed = sensor_value[0]; // [adc unit 0-4096]
 
 	belt_speed = adc_round_up(belt_speed);
 
 	stepper_set_target_belt_speed(belt_speed);
+
+	if (belt_speed < 800)
+	{
+		stepper_set_speed(5);
+	}
+	else if (belt_speed < 2500)
+	{
+		stepper_set_speed(10);
+	}
+	else if (belt_speed < 4000)
+	{
+		stepper_set_speed(20);
+	}
+
+
+
+	//printf("Belt speed = %d\n\r",belt_speed);
 }
 
 /**

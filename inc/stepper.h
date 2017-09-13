@@ -26,10 +26,11 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void stepper_init(void);
-void stepper_set_speed(uint16_t speed_rpm, motorDir_t direction);
+void stepper_set_speed(uint16_t speed_rpm);
 uint16_t stepper_rpm2step (float speed_rpm);
 uint16_t stepper_get_target_belt_speed();
-void stepper_set_target_belt_speed(uint16_t adc_value);
+void stepper_set_target_belt_speed(uint16_t value);
+void stepper_run(bool start);
 
 
 #endif /* STEPPER_H_ */

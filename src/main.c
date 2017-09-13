@@ -24,7 +24,7 @@
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
 
-static void EXTI15_10_IRQHandler_Config(void);
+//static void EXTI1_IRQHandler_Config(void);
 
 
 /* Private functions ---------------------------------------------------------*/
@@ -37,14 +37,15 @@ static void EXTI15_10_IRQHandler_Config(void);
 int main(void)
 {
 
+
+
 	HAL_Init();
 	/* Configure the system clock to 180 MHz */
 	SystemClock_Config();
-	EXTI15_10_IRQHandler_Config();
+	//EXTI1_IRQHandler_Config();
+	//EXTI15_10_IRQHandler_Config();
 
 	uart_printf_init();
-	lcd_init();
-
 
 	rtc_init();
 	rtc_set_alarm();
@@ -53,24 +54,17 @@ int main(void)
 	adc_init();
 
 	stepper_init();
-	//stepper_set_speed(20, BACKWARD);
+	stepper_run(1);
+	stepper_set_speed(1);
 
-	// Wait before sending the first display
-
-
-	rtc_delay_sec(1);
-	lcd_display_init();
-
-	//uint16_t adc_value = 1320;
-	//float temp;
-	//temp = adctotemp(adc_value);
 
 
 	while (1)
 	{
-		//printf("Temp = %f\n\r",temp);
+
 
 	}
+
 }
 
 /**
@@ -144,32 +138,20 @@ void SystemClock_Config(void)
   * @param  None
   * @retval None
   */
-static void EXTI15_10_IRQHandler_Config(void)
+/*static void EXTI1_IRQHandler_Config(void)
 {
   GPIO_InitTypeDef   GPIO_InitStructure;
 
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-
-  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
   GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStructure.Pull = GPIO_PULLUP;
-  GPIO_InitStructure.Pin = GPIO_PIN_13;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+  GPIO_InitStructure.Pin = GPIO_PIN_1;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-  GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStructure.Pull = GPIO_PULLUP;
-  GPIO_InitStructure.Pin = GPIO_PIN_14;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-  GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStructure.Pull = GPIO_PULLUP;
-  GPIO_InitStructure.Pin = GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-}
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+}*/
 
 
 

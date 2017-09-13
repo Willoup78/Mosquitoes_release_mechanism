@@ -1,5 +1,6 @@
 /**
   ******************************************************************************
+
   * @file    stepper.c
   * @author  William PONSOT
   * @version V1.0
@@ -50,17 +51,32 @@ static void MyFlagInterruptHandler(void);
 
 /* Private functions ---------------------------------------------------------*/
 
-void stepper_set_target_belt_speed(uint16_t adc_value)
+void stepper_set_target_belt_speed(uint16_t value)
 {
-	uint16_t scale = STEPPER_SPEED_MAX - STEPPER_SPEED_MIN;
-	float divider = 4096 / scale;
 
-	target_speed = (uint16_t)((float)adc_value / divider);
+	target_speed = value;
 }
 
 uint16_t stepper_get_target_belt_speed()
 {
 	return target_speed;
+}
+
+
+
+void stepper_run (bool start)
+{
+	if (start)
+	{
+		BSP_MotorControl_Run(0, BACKWARD);
+	}
+
+	else
+	{
+		BSP_MotorControl_SoftStop(0);
+	}
+
+
 }
 
 /**
@@ -109,12 +125,11 @@ uint16_t stepper_rpm2step (float speed_rpm)
   * @param  direction: choose the direction of the motor (FORWARD or BACKWARD)
   * @retval None
   */
-void stepper_set_speed(uint16_t speed_rpm, motorDir_t direction)
+void stepper_set_speed(uint16_t speed_rpm)
 {
 	uint16_t speed_step;
 
 	speed_step = stepper_rpm2step(speed_rpm);
-	BSP_MotorControl_Run(0, direction);
 	BSP_MotorControl_SetMaxSpeed(0, speed_step);
 }
 

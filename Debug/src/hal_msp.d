@@ -76,7 +76,11 @@ src/hal_msp.o: ../src/hal_msp.c \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motor.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/lcd.h \
  C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h \
- C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stepper.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motorcontrol.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/L6474.h \
+ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/l6474_target_config.h
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h:
 
@@ -233,3 +237,11 @@ C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/lc
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/rtc.h:
 
 C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/hal_msp.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/stepper.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/motorcontrol.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/L6474.h:
+
+C:/Users/William/Documents/Projects/Mosquitoes_release_mechanism_soft/Mos/inc/l6474_target_config.h:

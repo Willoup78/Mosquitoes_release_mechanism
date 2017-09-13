@@ -12,6 +12,7 @@
 #include "hal_msp.h"
 #include "lcd.h"
 #include "rtc.h"
+#include "stepper.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -267,10 +268,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); //PC0
 
-	GPIO_InitStruct.Pin = GPIO_PIN_2;
-	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); //PC2
+
 
 	/*##-3- Configure the NVIC #################################################*/
 	/* NVIC configuration for ADC interrupt */
@@ -518,40 +516,31 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	Time time;
 	static uint8_t entry_time = 0;
 	uint8_t current_time;
-	uint8_t delay;
-
-	static bool key_press = 0;
 
 	if (GPIO_Pin == BSP_MOTOR_CONTROL_BOARD_FLAG_PIN)
 	{
 	BSP_MotorControl_FlagInterruptHandler();
 	}
 
-	if (GPIO_Pin == GPIO_PIN_13) // LEFT PC13
-	{
-		lcd_display(LEFT);
-	}
-
-	if (GPIO_Pin == GPIO_PIN_14) //RIGHT PB14
-	{
-		lcd_display(RIGHT);
-	}
-
-	if (GPIO_Pin == GPIO_PIN_15) //START/STOP PB15
+	if (GPIO_Pin == GPIO_PIN_1)
 	{
 		rtc_calendar_read(&time);
 		current_time = time.seconds;
 
 		if (start == 1 && (current_time-entry_time) > 2)
 		{
-			lcd_change_status(FINISH);
+			printf("END\n\r");
+			stepper_run(0);
+			start = 0;
+			entry_time = time.seconds;
 		}
 
-		if(start == 0)
+		if(start == 0 && (current_time-entry_time) > 2)
 		{
 			entry_time = time.seconds;
-			lcd_change_status(START);
+			printf("START\n\r");
 			start = 1;
+			stepper_run(1);
 		}
 	}
 }
