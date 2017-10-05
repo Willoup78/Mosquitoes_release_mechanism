@@ -63,13 +63,22 @@ int main(void)
 	adc_init();
 
 	stepper_init();
-	stepper_run(1);
+	stepper_run(0);
 	stepper_set_speed(0);
 
 	//Added JG
 	uart3_init();
 	__HAL_UART_ENABLE_IT(&Uart3Handle, UART_IT_RXNE);
 
+//	uint16_t sensor_value = 1015;
+//	uint8_t hi_byte = sensor_value >> 8;  //enthält dann 0x43
+//	uint8_t lo_byte = (uint8_t)(sensor_value & 0x00ff); //enthält 0x21
+//	uint8_t data[] = {1, hi_byte, lo_byte};
+//	//uint8_t data[] = {1, 4, 7};
+//	HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
+
+//	stepper_run(1);
+//	stepper_set_speed();
 
 	int once = 1;
 	while (1)

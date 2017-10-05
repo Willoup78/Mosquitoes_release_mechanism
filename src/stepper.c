@@ -74,6 +74,7 @@ void stepper_run (bool start)
 	else
 	{
 		BSP_MotorControl_SoftStop(0);
+		BSP_MotorControl_CmdHardHiZ(0);
 	}
 
 

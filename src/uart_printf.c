@@ -16,6 +16,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef UartHandle;
+extern UART_HandleTypeDef Uart3Handle;
 /* Private function prototypes -----------------------------------------------*/
 #ifdef __GNUC__
   /* With GCC, small printf (option LD Linker->Libraries->Small printf
@@ -53,13 +54,41 @@ void uart_sd_recording()
 	rtc_calendar_read(&time);
 	adc_read_data(sensor_value);
 
-	printf("%d %d %d ", time.hours, time.minutes, time.seconds);
+	//test: send to OnboardSDK: OK
+	//uint8_t some_value = '2';
+	//HAL_UART_Transmit(&Uart3Handle, (uint8_t *) &some_value, 1, 0xFFFF);
+
+
+	//printf("%d %d %d ", time.hours, time.minutes, time.seconds);
 
 	for (uint8_t i=0 ; i<NB_ADC_SENSOR ; i++)
 	{
-		printf("%d ", sensor_value[i]);
+		//uint8_t * dataPointer = &sensor_value[i];
+		uint8_t sensor = i;
+		//printf("%d ", sensor);
+		uint8_t hi_byte = sensor_value[i] >> 8;  //enthält dann 0x43
+		//printf("%d ", hi_byte);
+		uint8_t lo_byte = (uint8_t)(sensor_value[i] & 0x00ff); //enthält 0x21
+		uint8_t data[] = {sensor, hi_byte, lo_byte};
+		//printf("%d ", lo_byte);
+		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
+//		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)&sensor, 1, 0xFF);
+//		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)&hi_byte, 1, 0xFF);
+//		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)&lo_byte, 1, 0XFF);
+
+		//uint16_t Rx = (hi_byte << 8) | lo_byte;
+		//printf("%d ", Rx);
+//		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)(sensor_value[i]), 2, 0);
+
+
+		//this works OK
+		//uint8_t some_value = sensor_value[i];
+		//HAL_UART_Transmit(&Uart3Handle, (uint8_t *) &some_value, 1, 0xFFFF);
+		//printf("%d ", some_value);
+		//printf("%d ", sensor_value[i]);
+
 	}
-	printf("\n\r");
+	//printf("\n\r");
 }
 
 /**

@@ -19,7 +19,7 @@
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 #define STEPPER_ACC 400
-#define STEPPER_MODE L6474_STEP_SEL_1_16
+#define STEPPER_MODE L6474_STEP_SEL_1_8
 #define STEPPER_CURRENT_MAX 3375 //(375;6000) with 375 step increment
 #define STEPPER_SPEED_MIN 0
 #define STEPPER_SPEED_MAX 150
