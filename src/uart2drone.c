@@ -33,6 +33,7 @@ void uart3_init()
 	Uart3Handle.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
 	Uart3Handle.Init.Mode         = UART_MODE_TX_RX;
 	Uart3Handle.Init.OverSampling = UART_OVERSAMPLING_16;
+	Uart3Handle.Init.Parity       = UART_PARITY_NONE;
 	HAL_UART_Init(&Uart3Handle);
 
 	//USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);

@@ -17,6 +17,7 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef UartHandle;
 extern UART_HandleTypeDef Uart3Handle;
+int counter = 0;
 /* Private function prototypes -----------------------------------------------*/
 #ifdef __GNUC__
   /* With GCC, small printf (option LD Linker->Libraries->Small printf
@@ -51,7 +52,7 @@ void uart_sd_recording()
 	uint16_t sensor_value[NB_ADC_SENSOR];
 	Time time;
 
-	rtc_calendar_read(&time);
+	//rtc_calendar_read(&time);
 	adc_read_data(sensor_value);
 
 	//test: send to OnboardSDK: OK
@@ -61,17 +62,24 @@ void uart_sd_recording()
 
 	//printf("%d %d %d ", time.hours, time.minutes, time.seconds);
 
-	for (uint8_t i=0 ; i<NB_ADC_SENSOR ; i++)
+	//for (uint8_t i=0 ; i<NB_ADC_SENSOR ; i++)
+	int i = counter;
 	{
 		//uint8_t * dataPointer = &sensor_value[i];
 		uint8_t sensor = i;
-		//printf("%d ", sensor);
+		printf("%d ", sensor);
 		uint8_t hi_byte = sensor_value[i] >> 8;  //enthält dann 0x43
-		//printf("%d ", hi_byte);
+		printf("%d ", hi_byte);
 		uint8_t lo_byte = (uint8_t)(sensor_value[i] & 0x00ff); //enthält 0x21
 		uint8_t data[] = {sensor, hi_byte, lo_byte};
-		//printf("%d ", lo_byte);
+		printf("%d ", lo_byte);
 		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
+		//HAL_Delay(100);
+
+		int nCount = 100;
+		for(; nCount != 0; nCount--);
+
+
 //		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)&sensor, 1, 0xFF);
 //		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)&hi_byte, 1, 0xFF);
 //		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)&lo_byte, 1, 0XFF);
@@ -88,7 +96,9 @@ void uart_sd_recording()
 		//printf("%d ", sensor_value[i]);
 
 	}
-	//printf("\n\r");
+	counter++;
+	if(counter >= 5){counter = 0;}
+	printf("\n\r");
 }
 
 /**
