@@ -78,7 +78,7 @@ int main(void)
 //	HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 
 //	stepper_run(1);
-//	stepper_set_speed();
+//	stepper_set_speed(3);
 
 	int once = 1;
 	while (1)

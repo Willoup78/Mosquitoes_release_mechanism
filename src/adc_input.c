@@ -12,6 +12,8 @@
 #include "adc_input.h"
 #include "stdlib.h"
 #include "stepper.h"
+#include "math.h"
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -136,22 +138,45 @@ void adc_read_data(uint16_t* sensor_value)
 
 float adctotemp(uint16_t adc_value)
 {
-	uint16_t min_value = 4096; //4096 is the max value possible
-	float temp;
-	uint16_t diff;
+//	uint16_t min_value = 4096; //4096 is the max value possible
+//	float temp;
+//	uint16_t diff;
+//
+//	for (uint32_t i=0; i< (sizeof(resistor_value)/2); i++)
+//	{
+//		diff = abs((uint16_t)resistor_value[2*i] - adc_value);
+//
+//		if(diff < min_value)
+//		{
+//			min_value = diff;
+//			temp = resistor_value[2*i+1];
+//		}
+//	}
 
-	for (uint32_t i=0; i< (sizeof(resistor_value)/2); i++)
-	{
-		diff = abs((uint16_t)resistor_value[2*i] - adc_value);
+	int R_balance = 10000;
+	float D_max = 4096;
+	float D_measured = adc_value;
+	// Kelvin
+	int BETA = 3977;
+	// room temperature in Kelvin
+	float ROOM_TEMP = 298.15;
+	float RESISTOR_ROOM_TEMP = 3000.0;
 
-		if(diff < min_value)
-		{
-			min_value = diff;
-			temp = resistor_value[2*i+1];
-		}
-	}
+	float rThermistor = 0;            // Holds thermistor resistance value
+	float tKelvin     = 0;            // Holds calculated temperature
+	float tCelsius    = 0;            // Hold temperature in celsius
 
-	return temp;
+	// voltage divider
+	rThermistor = R_balance / ( (D_max / D_measured) - 1);
+
+	//printf("rThermistor %f", rThermistor);
+
+	tKelvin = (BETA * ROOM_TEMP) / (BETA + (ROOM_TEMP * log(rThermistor / RESISTOR_ROOM_TEMP)));
+
+	// convert kelvin to celsius
+	tCelsius = tKelvin - 273.15;
+
+	return tCelsius;
 }
 
 /**

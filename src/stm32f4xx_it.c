@@ -176,9 +176,10 @@ void USART3_IRQHandler(void)
 	HAL_UART_IRQHandler(&Uart3Handle);
 
 	/* USER CODE BEGIN USART1_IRQn 1 */
+
 	//send to usart2
-	uint8_t buff_ACK[30] = "Receiving command from drone to update motor speed!";
-	HAL_UART_Transmit(&UartHandle, buff_ACK, 12, 100);
+	//uint8_t buff_ACK[30] = "Receiving command from drone to update motor speed!";
+	//HAL_UART_Transmit(&UartHandle, buff_ACK, 30, 100);
 
 	//uint8_t buff_ACK[12] = "Interrupt 3 ";
 	//HAL_UART_Transmit(&UartHandle, buff_ACK, 12, 100);
@@ -200,20 +201,17 @@ void USART3_IRQHandler(void)
   */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
-	//if huart = huart1
-	//uint8_t buff_ACK[15] = "Interrupt 3: ";
-	//HAL_UART_Transmit(&UartHandle, buff_ACK, 15, 100);
-
-//		uint8_t buff_ACK[15] = "received data: ";
-//		HAL_UART_Transmit(&huart2, buff_ACK, 15, 100);
-
-
+	//print message
 	// currentChar contains now the message
-	uint8_t buff_ACK[16] = "Updating speed: ";
-	HAL_UART_Transmit(&UartHandle, buff_ACK, 12, 100);
 	HAL_UART_Transmit(&UartHandle, currentChar, 1, 100);
-	//printf("updating motor speed");
+
 	if(huart->Instance == USART3){
+
+		//print message
+		uint8_t buff_ACK[30] = "Int UART3: Updating motor\n";
+		HAL_UART_Transmit(&UartHandle, buff_ACK, 30, 100);
+		//printf("\n\r");
+
 		//stepper_set_speed(10);
 		uint8_t data[] = {10, 0, 0};
 		switch(currentChar[0]){
@@ -227,21 +225,21 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 				stepper_run(1);
 				stepper_set_speed(1);
 				//inform OSDK
-				data[1] = 1;
+				data[0] = 11;
 				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 				break;
 			case '2':
 				stepper_run(1);
 				stepper_set_speed(2);
 				//inform OSDK
-				data[1] = 2;
+				data[0] = 12;
 				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 				break;
 			case '3':
 				stepper_run(1);
 				stepper_set_speed(3);
 				//inform OSDK
-				data[1] = 3;
+				data[0] = 13;
 				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 				break;
 			default:

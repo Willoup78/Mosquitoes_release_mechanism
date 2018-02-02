@@ -68,11 +68,13 @@ void uart_sd_recording()
 		//uint8_t * dataPointer = &sensor_value[i];
 		uint8_t sensor = i;
 		printf("%d ", sensor);
+		printf("%d ", sensor_value[i]);
+		printf("%f \n", adctotemp(sensor_value[i]));
 		uint8_t hi_byte = sensor_value[i] >> 8;  //enthält dann 0x43
-		printf("%d ", hi_byte);
+		//printf("%d \n", hi_byte);
 		uint8_t lo_byte = (uint8_t)(sensor_value[i] & 0x00ff); //enthält 0x21
-		uint8_t data[] = {sensor, hi_byte, lo_byte};
-		printf("%d ", lo_byte);
+		uint8_t data[] = {100+sensor, hi_byte, lo_byte};
+		//printf("%d \n", lo_byte);
 		HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 		//HAL_Delay(100);
 
