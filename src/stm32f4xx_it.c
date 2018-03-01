@@ -208,43 +208,61 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if(huart->Instance == USART3){
 
 		//print message
-		uint8_t buff_ACK[30] = "Int UART3: Updating motor\n";
-		HAL_UART_Transmit(&UartHandle, buff_ACK, 30, 100);
+		uint8_t buff_ACK[10] = "Int UART3: ";
+		HAL_UART_Transmit(&UartHandle, buff_ACK, 10, 100);
+
 		//printf("\n\r");
 
 		//stepper_set_speed(10);
 		uint8_t data[] = {10, 0, 0};
+		uint8_t message0[15] = "Motor speed 0\n";
+		uint8_t message1[15] = "Motor speed 1\n";
+		uint8_t message2[15] = "Motor speed 2\n";
+		uint8_t message3[15] = "Motor speed 3\n";
+		uint8_t message4[15] = "Communication check\n";
+		uint8_t message5[15] = "Command unknown\n";
+
 		switch(currentChar[0]){
-			case '0':
+			case 4:
 				stepper_run(0);
 				stepper_set_speed(0);
+				HAL_UART_Transmit(&UartHandle, message0, 15, 100);
 				//inform OSDK
 				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 				break;
-			case '1':
+			case 1:
 				stepper_run(1);
 				stepper_set_speed(1);
+				HAL_UART_Transmit(&UartHandle, message1, 15, 100);
 				//inform OSDK
 				data[0] = 11;
 				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 				break;
-			case '2':
+			case 2:
 				stepper_run(1);
 				stepper_set_speed(2);
+				HAL_UART_Transmit(&UartHandle, message2, 15, 100);
 				//inform OSDK
 				data[0] = 12;
 				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 				break;
-			case '3':
+			case 3:
 				stepper_run(1);
 				stepper_set_speed(3);
+				HAL_UART_Transmit(&UartHandle, message3, 15, 100);
 				//inform OSDK
 				data[0] = 13;
 				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 				break;
+			case 5:
+				HAL_UART_Transmit(&UartHandle, message4, 15, 100);
+				//inform OSDK
+				data[0] = 15;
+				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
+				break;
 			default:
-				stepper_run(0);
-				stepper_set_speed(0);
+				HAL_UART_Transmit(&UartHandle, message5, 15, 100);
+				data[0] = 16;
 				//inform OSDK
 				HAL_UART_Transmit(&Uart3Handle, (uint8_t *)data, 3, 0xFF);
 				break;
